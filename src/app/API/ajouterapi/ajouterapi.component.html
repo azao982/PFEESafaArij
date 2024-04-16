@@ -1,0 +1,111 @@
+<form [formGroup]="apiForm" class="container mt-5">
+  <h1 class="text-center mb-4" style="color:rgb(197, 42, 22);"> <i class="fas fa-cogs" style="color:rgb(175, 19, 16);"> </i> Ajouter API</h1>
+
+  <div class="form-group">
+    <label for="nom">Nom:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend" >
+        <span class="input-group-text"><i class="fas fa-signature" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="nom" formControlName='nom' name="nom">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="code">Code:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-code" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="code" formControlName='code' name="code">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-info-circle" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="description" formControlName='description' name="description">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="input">Input:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-arrow-right" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="input" formControlName='input' name="input">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="output">Output:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-arrow-left" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="output" formControlName='output' name="output">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cadreUtilisation">Cadre d'Utilisation:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-tasks"style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;" ></i></span>
+      </div>
+      <input type="text" class="form-control" id="cadreUtilisation" formControlName='cadreUtilisation' name="cadreUtilisation">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="url">Url:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-link" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="url" formControlName='url' name="url">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="mode">Mode:</label><br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-cogs" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="mode" formControlName='mode' name="mode">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="methode">Méthode:</label>
+    <br>
+     <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-handshake" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;"></i></span>
+      </div>
+      <input type="text" class="form-control" id="methode" formControlName='methode' name="methode">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="impact" style="font-weight:bold;">Impact:</label>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-exclamation" style="color:rgb(175, 43, 25); font-size:25px; font-weight:bold;" ></i></span>
+      </div>
+      <input type="text" class="form-control" id="impact" formControlName='impact' name="impact">
+    </div>
+  </div>
+<br>
+  <div class="form-group text-center">
+    <button type="button" class="btn btn-dark" (click)="onAjouter()" [disabled]="!apiForm.valid">
+      <i class="fas fa-plus-circle mr-2"></i> Valider Ajout
+    </button>
+  </div>
+</form>

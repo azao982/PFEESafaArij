@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id Profil</th>
+      <th>Code Profil</th>
+      <th>Nom Profil</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let profil of profils">
+      <td>{{profil.id}}</td>
+      <td>{{profil.code}}</td>
+      <td>{{profil.nomProfil}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="modifierProfil(profil.id)">Modifier</button>
+        <button class="btn btn-danger" (click)="supprimerProfil(profil.id)">Supprimer</button>
+        <button class="btn btn-info" (click)="detailProfil(profil.id)">Détail</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

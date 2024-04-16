@@ -1,0 +1,129 @@
+/* Bootstrap CSS */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.swal2-popup-custom {
+  font-size: 150px; /* Taille de la police personnalisée */
+}
+
+.swal2-title-custom {
+  font-size: 240px; /* Taille de la police du titre personnalisé */
+}
+
+.swal2-html-container-custom {
+  font-size: 180px; /* Taille de la police du contenu HTML personnalisé */
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  margin-top: 20px;
+  background-color: transparent;
+}
+.table-bordered {
+  border: 1px solid #8b8d8f;
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #3d5975;
+}
+
+/* Custom CSS */
+.table thead th {
+  text-align: center; /* Alignement au centre du texte dans les th */
+}
+.table tbody td {
+  text-align: center; /* Alignement au centre du texte dans les td */
+}
+
+/* Ajustement automatique de la largeur des colonnes en fonction du contenu */
+.table tbody td,
+.table thead th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bootstrap Icones */
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+td .show{
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+  color: red;
+}
+
+td .delete{
+  color:blue;
+}
+td .edit{
+  color: rgb(161, 116, 57);
+}
+
+/* Ajouter des espacements et des bordures aux icônes */
+.table tbody td a {
+  margin: 0 5px;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.table tbody td a:hover {
+  border-color: #ccc;
+  background-color: #f5f5f5;
+}
+
+h2
+{
+  margin-top: 30px;
+  text-align: center;
+  margin-right: 50px;
+  color:#5eb1c3;
+}
+
+.col-sm-4{
+  margin-top: 30px;
+}
+
+.search-container .input-group
+{
+  margin-top: 20px;
+  width: 250px;
+  height: 30px;
+}
+.fa-search
+{
+  width: 80px;
+  height: 30px;
+  padding-top: 8px;
+}

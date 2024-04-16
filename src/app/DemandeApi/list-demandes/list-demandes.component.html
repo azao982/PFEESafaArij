@@ -1,0 +1,209 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8"><h2><b>Liste des Demandes</b></h2></div>
+        <div class="col-sm-4">
+          <div class="search-container">
+            <div class="input-group">
+              <input type="text" class="form-control mr-1" id="searchInput" [(ngModel)]="searchKeyword" placeholder="Search...">
+              <div class="input-group-append">
+                <button class="btn btn-dark" type="button" (click)="searchDemande()">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered">                <thead>
+                    <tr>
+                        <th>Id Demande</th>
+                        <th>Description</th>
+                        <th>Reference</th>
+                        <th>Nom App</th>
+                        <th>Hébergeur App</th>
+                        <th>Publié</th>
+                        <th>Nom Domaine App</th>
+                        <th>Adresse Ip App</th>
+                        <th>Type connexion</th>
+                        <th>Nombre Appel/An</th>
+                        <th>Nombre Appel/Minute</th>
+                        <th>Inv Masse</th>
+                        <th>Pays Hébèrgeur</th>
+                        <th>Date Inv Masse</th>
+                        <th>Raison Inv Masse</th>
+                        <th>Date création</th>
+                        <th>Date modification</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let Demande of (searchResults.length ? searchResults : demandes)">
+                    <td>{{Demande.idDemande}}</td>
+                        <td>{{Demande.description}}</td>
+                        <td>{{Demande.reference}}</td>
+                        <td>{{Demande.nomapp}}</td>
+                        <td>{{Demande.hebergeurapp}}</td>
+                        <td>{{Demande.publie}}</td>
+                        <td>{{Demande.nomdomaineapp}}</td>
+                        <td>{{Demande.adresseipapp}}</td>
+                        <td>{{Demande.typeconnexion}}</td>
+                        <td>{{Demande.nombreappelan}}</td>
+                        <td>{{Demande.nombreappelmin}}</td>
+                        <td>{{Demande.invomasse}}</td>
+                        <td>{{Demande.payshebergeur}}</td>
+                        <td>{{Demande.dateinvmasse}}</td>
+                        <td>{{Demande.raisoninmasse}}</td>
+                        <td>{{Demande.datecreation}}</td>
+                        <td>{{Demande.datemodification}}</td>
+                        <td>
+							              <a class="show" title="Show" data-toggle="tooltip" (click)=DetailDemande(Demande.idDemande)><i class="fa fa-info-circle"></i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" (click)=modifierDemande(Demande.idDemande) ><i class="material-icons"></i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip" (click)=supprimerDemande(Demande.idDemande)><i class="material-icons"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="col-sm-4">
+              <button class="btn btn-info add-new" type="button" routerLink="/ajouterDemande">
+                <i class="fa fa-plus"></i> Add New
+              </button>
+<!--      <button class="btn btn-info add-new" type="button" data-toggle="modal" data-target="#demande-form-modal">
+        <i class="fa fa-plus"></i> Add New
+      </button>
+    </div>
+<!-->
+
+  <!-- Demande Form Modal -->
+  <div class="modal fade" role="dialog" tabindex="-1" id="demande-form-modal" aria-labelledby="demande-form-modal" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"> <i class="fa fa-plus"></i> Ajouter Demande</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-1">
+            <form [formGroup]="demandeForm">
+              <div class="form-group">
+                  <label for="description">Description:</label>
+                  <input type="text" class="form-control" id="description" placeholder="Description" formControlName='description'>
+              </div>
+
+              <div class="form-group">
+                  <label for="reference">Reference:</label>
+                  <input type="text" class="form-control" id="reference"  placeholder="Référence" formControlName='reference'>
+              </div>
+
+              <div class="form-group">
+                  <label for="nomapp">Nom de l'Application:</label>
+                  <input type="text" required class="form-control" id="nomapp" placeholder="Nom de l'Application" formControlName='nomapp'>
+              </div>
+
+              <div class="form-group">
+                  <label for="hebergeurapp">Hébergeur de l'Application:</label>
+                  <input type="text" class="form-control" id="hebergeurapp" placeholder="Hébergeur de l'Application" formControlName='hebergeurapp'>
+              </div>
+
+              <div class="form-group">
+                  <label for="publie">Publié:</label>
+                  <input type="radio" class="form-check-input custom-checkbox" id="publie" formControlName='publie'>
+              </div>
+
+              <div class="form-group">
+                  <label for="nomdomaineapp">Nom de domaine de l'Application:</label>
+                  <input type="text" class="form-control" id="nomdomaineapp" placeholder="Nom de domaine de l'Application" formControlName='nomdomaineapp'>
+              </div>
+
+              <div class="form-group">
+                  <label for="adresseipapp">Adresse IP de l'Application:</label>
+                  <input type="text" class="form-control" id="adresseipapp" placeholder="Adresse IP de l'Application" formControlName='adresseipapp'>
+              </div>
+
+              <div class="form-group">
+                  <label for="typeconnexion">Type de connexion:</label>
+                  <input type="text" class="form-control" id="typeconnexion" placeholder="Type de connexion" formControlName='typeconnexion'>
+              </div>
+
+              <div class="form-group">
+                  <label for="nombreappelan">Nombre d'appels par an:</label>
+                  <input type="number" class="form-control" id="nombreappelan" placeholder="Nombre d'appels par an" formControlName='nombreappelan'>
+              </div>
+
+              <div class="form-group">
+                  <label for="nombreappelmin">Nombre d'appels par minute:</label>
+                  <input type="number" class="form-control" id="nombreappelmin" placeholder="Nombre d'appels par minute" formControlName='nombreappelmin'>
+              </div>
+
+              <div class="form-group">
+                  <label for="invomasse">Facturation en masse:</label>
+                  <input type="radio" class="form-check-input custom-checkbox" id="invomasse" formControlName='invomasse'>
+              </div>
+
+              <div class="form-group">
+                  <label for="payshebergeur">Pays de l'hébergeur:</label>
+                  <input type="text" class="form-control" id="payshebergeur" placeholder="Pays de l'hébergeur" formControlName='payshebergeur'>
+              </div>
+
+              <div class="form-group">
+                  <label for="dateinvmasse">Date d'invoication en masse:</label>
+                  <input type="date" class="form-control" id="dateinvmasse" formControlName='dateinvmasse'>
+              </div>
+
+              <div class="form-group">
+                  <label for="raisoninmasse">Raison de l'invoication en masse:</label>
+                  <input type="text" class="form-control" id="raisoninmasse" placeholder="Raison de l'invoication en masse" formControlName='raisoninmasse'>
+              </div>
+
+              <div class="form-group">
+                  <label for="datecreation">Date de création:</label>
+                  <input type="date" class="form-control" id="datecreation" formControlName='datecreation'>
+              </div>
+
+              <div class="form-group">
+                  <label for="datemodification">Date de modification:</label>
+                  <input type="date" class="form-control" id="datemodification" formControlName='datemodification'>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 mb-3">
+                  <div class="row">
+                    <div class="text-center">
+                      <button type="button" (click)="onAjouter()" class="btn btn-primary" [disabled]="formulaire">
+                          <i class="fa fa-plus-circle"></i> Enregistrer Demande
+                      </button>
+                  </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <!--closing footer-->
+        <div>
+            <button type="button" classe="btn btn-dark" data-bs-dismiss="modal" style="margin-left:380px; margin-bottom:20px; width:100px"> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!---->
+
+
+
+
+        </div>
+    </div>

@@ -1,0 +1,108 @@
+import { DemandeApi } from 'src/app/Classes/demandeApi';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DemandeService } from 'src/app/Service/demande.service';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-details-demande',
+  templateUrl: './details-demande.component.html',
+  styleUrls: ['./details-demande.component.css']
+})
+export class DetailsDemandeComponent implements OnInit {
+
+  constructor(private demandeService : DemandeService ,private ActivatedRoute: ActivatedRoute, private Router:Router) {}
+    ngOnInit() : void{
+      const idDemande:any=this.ActivatedRoute.snapshot.paramMap.get('idDemande');
+      this.getDemande(idDemande);
+    }
+
+   demande:any={
+    idDemande :'',
+    reference: '',
+    description: '',
+    nomapp: '',
+    hebergeurapp: '',
+    publie: false,
+    nomdomaineapp: '',
+    adresseipapp: '',
+    typeconnexion: '',
+    nombreappelan: 0,
+    nombreappelmin : 0,
+    invomasse : true ,
+    payshebergeur : '',
+    datecreation : '',
+    datemodification : '',
+    dateinvmasse : '',
+    raisoninmasse : '',
+
+  }
+
+    private getDemande(idDemande : number) : void{
+      this.demandeService.getById(idDemande).subscribe(
+       demande => {
+          this.demande=demande;
+          this.demande.datecreation = new Date(demande.datecreation).toISOString().split('T')[0];
+          this.demande.datemodification = new Date(demande.datemodification).toISOString().split('T')[0];
+          this.demande.dateinvmasse = new Date(demande.dateinvmasse).toISOString().split('T')[0];
+
+      })
+    }
+// supprimer demande
+supprimerDemande(idDemande: number): void {
+  if (idDemande === undefined || idDemande === null) {
+    alert("id Demande indéfini");
+    return;
+  }
+
+  // Afficher une boîte de dialogue de confirmation
+  Swal.fire({
+    title: 'Êtes-vous sûr de vouloir supprimer cette demande ?',
+    text: 'Cette action est irréversible!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui, supprimer!',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log("id demande à supprimer : ", idDemande);
+      // Appel de la méthode pour supprimer la demande
+      this.demandeService.supprimerDemande(idDemande).subscribe(
+        () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Succès!',
+            text: 'La demande a été supprimée avec succès.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.Router.navigate(['/listDemande']);
+            }
+          });
+        },
+        error => {
+          console.error('Échec de la suppression demande :', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur!',
+            text: 'Échec de la suppression de la demande. Veuillez réessayer.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          });
+        }
+      );
+    }
+  });
+}
+
+  // modifier demande
+  modifierDemande(idDemande:number):void{
+    this.Router.navigate(['/modifierDemande' ,idDemande]);
+    }
+
+}
+
+

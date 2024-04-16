@@ -1,0 +1,40 @@
+h1{
+  text-align: center;
+  color:black;
+  border-color: darkblue;
+  border-radius: 20%;
+}
+
+button {
+padding: 10px 20px;
+background-color: rgba(181, 176, 159, 0.791);
+color:black;
+border: none;
+border-radius: 15px;
+margin-left: 500px;
+cursor: pointer;
+font-weight: bold;
+}
+
+body {
+background-size: cover;
+height: 95vh;
+padding-left: 200px;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center;
+}
+.e{
+color: black;
+font-weight: bold;
+}
+label{
+font-weight: bold;
+font-size: 15px;
+margin-left: 00px;
+}
+input{
+margin-left: 300px;
+border-radius: 10px;
+width: 800px;
+}

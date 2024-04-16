@@ -1,0 +1,251 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+<div class="row flex-lg-nowrap">
+  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+    <div class="card p-3">
+      <div class="e-navlist e-navlist--active-bg">
+
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i></a></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+<div>
+  <img src="assets/photoUser.png" width="600px" height="500px"></div>
+  <div class="col">
+    <div class="e-tabs mb-3 px-3">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" href="/listUser"><strong>Liste des Utilisateurs</strong></a></li>
+      </ul>
+    </div>
+
+    <div class="row flex-lg-nowrap">
+      <div class="col mb-1">
+        <div class="e-panel card">
+          <!-- btn filter-->
+          <div class="card-body">
+            <div class="card-title">
+
+            </div>
+
+            <div class="e-table">
+              <div class="table-responsive table-lg mt-3">
+                <table class="table user-list">
+                  <thead>
+                    <tr>
+                      <th class="th">Nom</th>
+                      <th class="th">Prenom</th>
+                      <th class="th">CIN</th>
+                      <th class="th">Email</th>
+                      <th class="th">Profil</th>
+                      <th class="th">Mobile</th>
+                      <th class="th">Fonction</th>
+                      <th class="th">Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let user of (searchResults.length ? searchResults : users)">
+                      <td class="td">{{user.nom}}</td>
+                      <td class="td">{{user.prenom}}</td>
+                      <td class="td">{{user.cin}}</td>
+                      <td class="td">{{user.email}}</td>
+                      <td clas="td"> {{user.profile}}</td>
+                      <td class="td">{{user.mobile}}</td>
+                      <td class="td">{{user.fonction}}</td>
+                      <td class="td">
+                          <div class="btn-group align-top">
+                           <strong>
+                            <i class="fa fa-pencil font" (click)="modifierUser(user.idUser)"> </i>
+                            <i class="fa fa-trash font" (click)="supprimerUser(user.idUser)"> </i>
+                            <i class="fa fa-info-circle font" (click)="detailUser(user.idUser)"> </i>
+                           </strong>
+                          </div>
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+               </div>
+
+              <div class="d-flex justify-content-center">
+                <ul class="pagination mt-3 mb-0">
+                  <li class="disabled page-item"><a href="/accueil" class="page-link">‹</a></li>
+                  <li class="active page-item"><a href="/accueil" class="page-link">1</a></li>
+                  <li class="page-item"><a href="/accueil" class="page-link">2</a></li>
+                  <li class="page-item"><a href="/accueil" class="page-link">3</a></li>
+                  <li class="page-item"><a href="/accueil" class="page-link">4</a></li>
+                  <li class="page-item"><a href="/accueil" class="page-link">5</a></li>
+                  <li class="page-item"><a href="/accueil" class="page-link">›</a></li>
+                  <li class="page-item"><a href="/apropos" class="page-link">»</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center px-xl-3">
+              <button class="btn btn-warning btn-block" type="button" data-bs-toggle="modal" data-bs-target="#user-form-modal" (click) ="onAjouter()">  <i class="fa fa-add"></i> Ajouter User</button>
+            </div>
+
+            <hr class="my-3">
+                  <label for="searchInput"></label>
+                  <input type="text" id="searchInput" [(ngModel)]="searchKeyword"/>
+                  <div class="form-group">
+                    <button class="btn btn-light" (click)="RechercherUser()">
+                       <i class="fa fa-search"></i> Rechercher
+                    </button>
+                  <div>
+            </div>
+            <hr class="my-3">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- User Form Modal -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal" aria-labelledby="user-form-modal" aria-hidden="true" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> <i class="fa fa-plus"></i> Créer nouvel Utilisateur</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+
+
+          <div class="modal-body">
+            <div class="py-1">
+              <form [formGroup]="userForm">
+                <div class="row">
+                  <div class="col">
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="nom">Nom</label>
+                          <input class="form-control" type="text" id="nom" formControlName="nom"   required>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="prenom">Prénom</label>
+                          <input class="form-control" type="text" formControlName="prenom"  id="prenom"  required>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="email" id="email" formControlName="email" required>
+                          </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="profile">Profile</label>
+                          <select class="form-control" id="profile" formControlName="profile" >
+                            <option *ngFor="let profil of profileOptions" [value]="profil">{{ profil}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input class="form-control" type="password" id="password" formControlName="password" required>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="cin">CIN</label>
+                        <input class="form-control" type="text" id="cin" formControlName="cin"  required>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="grade">Grade</label>
+                      <input class="form-control" type="text" id="grade" formControlName="grade" bplaceholder="ingenieur / technicien / ouvrier ..." required>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="cnrps">CNRPS</label>
+                      <input class="form-control" type="text" id="cnrps" formControlName="cnrps"  required>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="fonction">Fonction</label>
+                      <input class="form-control" type="text" id="fonction" formControlName="fonction" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="mobile">Mobile</label>
+                      <input class="form-control" type="text" id="mobile" formControlName="mobile" required>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6 mb-3">
+                    <div class="row">
+                      <div class="text-center">
+                        <button type="button" (click)="onAjouter()" class="btn btn-primary" [disabled]="formulaire">
+                            <i class="fa fa-plus-circle"></i> Enregistrer User
+                        </button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <!--closing footer-->
+          <div>
+              <button type="button" classe="btn btn-dark" data-bs-dismiss="modal" style="margin-left:380px; margin-bottom:20px; width:100px"> Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!---->
+  </div>
+</div>
+</div>

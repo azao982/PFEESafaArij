@@ -1,0 +1,62 @@
+<!-- <body>
+  <img src="/assets/cnx.jpg">
+
+        <br>
+      <h1 class="my-4 xa" style="color:rgb(17, 13, 17) ; font-size:100px; text-align:center; text-justify:center">Connexion </h1>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="card custom-bg-color text-black">
+            <div class="card-body">
+              <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+              </div>
+              <form [formGroup]="loginForm" [@fadeInOut]="showForm">
+
+                  <div class="form-group">
+                  <label for="email" class="font-weight-bold"><i class="fas fa-user"></i> Email :</label>
+                  <br>
+                  <input type="email" class="form-control" id="email" placeholder="Entrez votre adresse mail" formControlName="email">
+                  <br>
+
+                  <div *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched)" class="error-message">
+                    {{ getErrorMessage('email') }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="font-weight-bold"><i class="fas fa-lock"></i> Mot de passe   :</label>
+                  <br>
+                  <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe" formControlName="password">
+                  <div *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty || loginForm.get('password').touched)" class="error-message">
+                    {{ getErrorMessage('password') }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="font-weight-bold">Role:</label>
+                  <br>
+                  <label>
+                      <input type="radio" formControlName="role" value="encadrant"> Encadrant
+                  </label>
+                  <label>
+                      <input type="radio" formControlName="role" value="stagiaire"> Stagiaire
+                  </label>
+                  <label>
+                    <input type="radio" formControlName="role" value="admin"> Admin
+                </label>
+              </div>
+
+                <div class="form-group text-center">
+                    <br>
+                  <button type="button" (click)="onLogin()" class="n" >
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->

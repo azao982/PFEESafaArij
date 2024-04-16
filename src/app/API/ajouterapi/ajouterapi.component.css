@@ -1,0 +1,32 @@
+h1{
+  margin-top: 0px;
+  padding-right: 100px;
+}
+body {
+  background-image: url('/assets/ba.jpg');
+  background-size: cover;
+  justify-items: center;
+  height: 1000px;
+}
+
+label{
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.x{
+
+  background-color: black;
+  color:white;
+  border-radius: 20px;
+  width: 140px;
+  height: 40px;
+
+margin-right: 2 00px;
+}
+
+input:not(.custom-checkbox){
+
+  border-radius: 10px;
+  width: 1000px;
+}

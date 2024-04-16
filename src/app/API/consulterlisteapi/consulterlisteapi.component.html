@@ -1,0 +1,75 @@
+<body>
+  <div class="container mt-4">
+    <h2 class="text-center mb-4"><i class="fas fa-list" style="color:rgb(204, 9, 41);"> </i> Liste des Apis</h2>
+    <div class="search-container mb-3 form-inline">
+      <label for="searchInput"> </label>
+      <input type="text" id="searchInput" [(ngModel)]="searchKeyword" class="form-control a" />
+      <br>
+      <button class="btn btn-primary" (click)="searchApi()">
+        <i class="fa fa-search"></i> Rechercher
+      </button>
+
+      <button class="btn btn-danger" (click)="filtrerApi(searchKeyword)">
+        <i class="fa fa-filter"></i> Filtrer
+      </button>
+
+    </div>
+
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="text-center">Nom </th>
+          <th scope="col" class="text-center">Code</th>
+          <th scope="col" class="text-center">Description</th>
+          <th scope="col" class="text-center">Input</th>
+          <th scope="col" class="text-center">Output</th>
+          <th scope="col" style="text-align: center; background-color:rgba(236, 222, 215, 0.492)">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="!apis || apis.length === 0">
+          <td colspan="10">No APIs found.</td>
+        </tr>
+
+        <tr *ngFor="let api of (searchResults.length ? searchResults : apis)">
+          <td>{{ api.nom }}</td>
+          <td>{{ api.code }}</td>
+          <td>{{ api.description }}</td>
+          <td>{{ api.input }}</td>
+          <td>{{ api.output }}</td>
+          <td class="text-center">
+            <div class="btn-group c" role="group">
+                <i class="fas fa-edit" (click)="redirigerVersPagemodifier(api.idApi)" style="color : rgb(253, 92, 119); font-size:30px;"></i>
+                <i class="fas fa-trash" (click)="supprimerApi(api.idApi)"  style="color : rgb(148, 3, 27); font-size:30px; margin-left:15px;"></i>
+                <i class="fas fa-info-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="showDetails(api)"  style="color : rgb(73, 126, 250); font-size:40px; font-size:30px; margin-left:15px;"></i>
+             </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a style="color:rgb(11, 32, 125);" (click)="redirigerVersPageajoute()">
+      <i class="fa fa-plus-circle"></i> Ajouter nouvel API
+    </a>
+  </div>
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+
+      <app-detailsapi [selectedApi]="selectedApi" class="details-section"> </app-detailsapi>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>

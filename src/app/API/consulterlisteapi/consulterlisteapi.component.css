@@ -1,0 +1,31 @@
+td{
+  text-align: center;
+  font-size: 20px;
+  color: black;
+  }
+.c{
+  background-color:rgb(247, 237, 237);
+  border-radius: 100%;
+}
+
+.btn{
+  min-width: 100px;
+}
+
+.btn-secondary1{
+  color:rgb(29, 15, 15);
+}
+h2{
+  text-align: center;
+  color:rgb(29, 13, 138);
+  font-weight: bold;
+}
+#searchInput {
+  width:300px;
+  border-color: blue;
+  border-radius: 20px;
+}
+
+.a{
+  border-radius: 5px;
+}

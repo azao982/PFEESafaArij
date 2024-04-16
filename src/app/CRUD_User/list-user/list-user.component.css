@@ -1,0 +1,22 @@
+.th{
+   background-color: rgb(254, 219, 210);
+   text-align: center;
+   justify-content: center;
+   text-decoration: underline;
+
+}
+
+.td{
+  background-color: rgb(246, 240, 239);
+   text-align: center;
+   justify-content: center;
+}
+.font{
+  color: blue;
+  margin: 15px
+}
+.card-body
+{
+  font-size: large;
+  font-size: 15px;
+}
