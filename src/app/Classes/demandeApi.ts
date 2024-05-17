@@ -1,3 +1,4 @@
+import { Status } from './../status';
 export class DemandeApi {
   constructor (
     public idDemande: number,
@@ -16,6 +17,7 @@ export class DemandeApi {
     public dateinvmasse: Date,
     public raisoninmasse: string,
     public datecreation: Date,
-    public datemodification: Date
+    public datemodification: Date,
+    public statut : Status
   ) {}
 }

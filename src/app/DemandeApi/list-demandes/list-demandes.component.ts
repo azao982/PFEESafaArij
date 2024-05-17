@@ -5,6 +5,7 @@ import { DemandeService } from 'src/app/Service/demande.service';
 import { DemandeApi } from 'src/app/Classes/demandeApi';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Status } from 'src/app/status';
 
 @Component({
   selector: 'app-list-demandes',
@@ -12,6 +13,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./list-demandes.component.css']
 })
 export class ListDemandesComponent implements OnInit {
+  colors: string[] = [
+      '#FADBD8', '#C5EAF9', '#D6DBDF', '#F7DC6F', '#F5B7B1',
+      '#D5F5E3', '#F5A9BC', '#EEE0B1', '#AED6F1', '#F5B041',
+      '#DFF0D8', '#F5B7B1', '#D6EAF8', '#F6DDCC', '#ABEBC6',
+      '#C8E6C9', '#AED6F1', '#FAD7A0', '#D7BDE2', '#A2D9CE'
+  ]
+  avatars: string[] = [
+    'https://bootdey.com/img/Content/avatar/avatar1.png',
+    'https://bootdey.com/img/Content/avatar/avatar2.png',
+    'https://bootdey.com/img/Content/avatar/avatar3.png',
+    'https://bootdey.com/img/Content/avatar/avatar4.png',
+    'https://bootdey.com/img/Content/avatar/avatar5.png',
+    'https://bootdey.com/img/Content/avatar/avatar6.png',
+    'https://bootdey.com/img/Content/avatar/avatar7.png',
+    'https://bootdey.com/img/Content/avatar/avatar8.png',
+    // Ajoutez autant d'URLs d'avatar que nécessaire
+  ];
 
   demandes: DemandeApi[] = [];
   searchKeyword: string = '';
@@ -20,7 +38,11 @@ export class ListDemandesComponent implements OnInit {
   selectedDemande:  DemandeApi | undefined;
   demandeForm : FormGroup;
   formulaire : boolean=false;
- formData: DemandeApi = {
+  selectedStatut: Status | undefined;
+
+  //statusOptions: string[] = Object.values(Status);
+
+  formData: any = {
     idDemande:0,
     reference: '',
     description: '',
@@ -38,7 +60,7 @@ export class ListDemandesComponent implements OnInit {
     datemodification : new Date(),
     dateinvmasse : new Date(),
     raisoninmasse : '',
-
+    statut :''
   };
 
   constructor(private demandesService: DemandeService, private fb : FormBuilder,private router: Router, private route : ActivatedRoute) {}
@@ -59,11 +81,16 @@ export class ListDemandesComponent implements OnInit {
       datecreation : [''],
       datemodification : [''],
       dateinvmasse : [''],
-      raisoninmasse :[''],
+      raisoninmasse : [''],
+      statut:['']
     });
     this.getDemandes();
-  }
+   // this.statusOptions = Object.values(Status);
 
+  }
+  getColor(index: number): string {
+    return this.colors[index % this.colors.length];
+  }
 // get liste des demandes
   private getDemandes(): void{
     this.demandesService.getListeDemandes().subscribe(data => {
@@ -79,8 +106,8 @@ export class ListDemandesComponent implements OnInit {
     }
 // Définir une classe CSS personnalisée pour agrandir la taille de la police
 const swalCustomClass = {
-  confirmButton: 'btn btn-success',
-  cancelButton: 'btn btn-danger',
+  confirmButton: 'btn btn-danger',
+  cancelButton: 'btn btn-success',
   popup: 'swal2-popup-custom',
   title: 'swal2-title-custom',
   htmlContainer: 'swal2-html-container-custom'
@@ -191,5 +218,29 @@ onAjouter() {
 //consulter detail demande
   DetailDemande(idDemande: number): void {
     this.router.navigate(['/detailDemande' ,idDemande]);
+
   }
+
+private showErrorMessage(message: string): void {
+  Swal.fire('Erreur', message, 'error');
+}
+
+
+// filtrer demande
+filtrerDemande(nomapp : string){
+
+  this.demandesService.filtrerDemande(nomapp).subscribe(
+    (result: DemandeApi[]) => {
+      console.log('Résultats filtrés :', result);
+      this.demandes=result;
+      console.log(result);
+
+    },
+    error => {
+      console.error('Erreur lors du filtrage :', error);
+      this.showErrorMessage("erreur lors du filtrage");
+    }
+  );
+}
+
 }

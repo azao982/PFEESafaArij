@@ -1,18 +1,24 @@
-<body>
-  <div class="container mt-4">
-    <h2 class="text-center mb-4"><i class="fas fa-list" style="color:rgb(204, 9, 41);"> </i> Liste des Apis</h2>
-    <div class="search-container mb-3 form-inline">
-      <label for="searchInput"> </label>
-      <input type="text" id="searchInput" [(ngModel)]="searchKeyword" class="form-control a" />
-      <br>
-      <button class="btn btn-primary" (click)="searchApi()">
-        <i class="fa fa-search"></i> Rechercher
-      </button>
+<body style="background-color: #ffffff;">
+  <div class="container mt-4 ">
+    <h2 class="text-center mb-4"><i class="fas fa-list" style="color:rgb(136, 136, 136);"> </i> Liste des Apis</h2>
+    <div class="search-container mb-2">
+      <!-- Boutons Rechercher et Filtrer alignés à gauche -->
+      <div class="d-flex">
+        <input type="text" id="searchInput" [(ngModel)]="searchKeyword" class="form-control a" placeholder="Rechercher..." />
+        <button class="btn btn-warning ml-2" (click)="searchApi()">
+          <i class="fa fa-search"></i>
+        </button>
+        <button class="btn btn-danger ml-2" (click)="trierApi(searchKeyword)">
+          <i class="fa fa-filter"></i> Trier
+        </button>
+      </div>
 
-      <button class="btn btn-danger" (click)="filtrerApi(searchKeyword)">
-        <i class="fa fa-filter"></i> Filtrer
-      </button>
-
+      <!-- Bouton Ajouter une Api sur une nouvelle ligne -->
+      <div class="mt-2">
+        <a class="btn btn-primary" (click)="redirigerVersPageajoute()">
+          <i class="fa fa-plus-circle mr-2 y"></i> Ajouter une Api
+        </a>
+      </div>
     </div>
 
     <table class="table table-striped table-bordered">
@@ -20,7 +26,7 @@
         <tr>
           <th scope="col" class="text-center">Nom </th>
           <th scope="col" class="text-center">Code</th>
-          <th scope="col" class="text-center">Description</th>
+          <th scope="col" class="text-center">Methode</th>
           <th scope="col" class="text-center">Input</th>
           <th scope="col" class="text-center">Output</th>
           <th scope="col" style="text-align: center; background-color:rgba(236, 222, 215, 0.492)">Actions</th>
@@ -35,22 +41,21 @@
         <tr *ngFor="let api of (searchResults.length ? searchResults : apis)">
           <td>{{ api.nom }}</td>
           <td>{{ api.code }}</td>
-          <td>{{ api.description }}</td>
+          <td>{{ api.methode }}</td>
           <td>{{ api.input }}</td>
           <td>{{ api.output }}</td>
           <td class="text-center">
             <div class="btn-group c" role="group">
-                <i class="fas fa-edit" (click)="redirigerVersPagemodifier(api.idApi)" style="color : rgb(253, 92, 119); font-size:30px;"></i>
-                <i class="fas fa-trash" (click)="supprimerApi(api.idApi)"  style="color : rgb(148, 3, 27); font-size:30px; margin-left:15px;"></i>
-                <i class="fas fa-info-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="showDetails(api)"  style="color : rgb(73, 126, 250); font-size:40px; font-size:30px; margin-left:15px;"></i>
+              <i class="fas fa-edit text-warning" (click)="redirigerVersPagemodifier(api.idApi)"></i>
+              <i class="fas fa-trash text-danger" (click)="supprimerApi(api.idApi)" style="margin-left:15px;"></i>
+              <i class="fas fa-info-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="showDetails(api)"  style="color : rgb(73, 126, 250); margin-left:15px;"></i>
              </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <a style="color:rgb(11, 32, 125);" (click)="redirigerVersPageajoute()">
-      <i class="fa fa-plus-circle"></i> Ajouter nouvel API
-    </a>
+
+
   </div>
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

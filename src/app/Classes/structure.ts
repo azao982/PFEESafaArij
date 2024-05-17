@@ -7,7 +7,6 @@ constructor(
   public adresse: string,
   public nomAr: string,
   public nomFr: string,
-  public type: string,
-) {
-}
+  public type: string)
+  {}
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Api } from 'src/app/Classes/api';
 import { ApiService } from 'src/app/Service/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajouterapi',
@@ -15,25 +16,35 @@ export class AjouterapiComponent {
   constructor(private apiService:ApiService, private fb:FormBuilder, private router:Router) { }
   onAjouter() {
     if (this.apiForm.valid) {
-      const apiData = this.apiForm.value; // Récupère les données du formulaire
+      const apiData = this.apiForm.value;
       this.apiService.addApi(apiData).subscribe(
-        () => {
-          console.log('API ajouté avec succès:', apiData);
-          alert("API ajouté avec succès");
-          this.router.navigate(['/listApi']);
-          this.formulaire = true;
+         () => {
+         console.log('API ajouté avec succès:', apiData);
+     Swal.fire({
+            icon: 'success',
+            title: 'Succès !',
+            color : "green",
+            text: 'Api ajouté avec succès',
+            confirmButtonText: 'OK',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/listApi']);
+            }
+          });
         },
         error => {
-          console.error('Erreur lors de l\'ajout de l\'API:', error);
-          alert("Une erreur est survenue lors de l'ajout de l'API. Veuillez réessayer.");
+          console.error('Erreur lors de l ajout de l"api',  error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            color : "red",
+            text: 'Une erreur s\'est produite lors de l\'ajout de l\'api. Veuillez réessayer.',
+            confirmButtonText: 'OK',
+          });
         }
       );
-    } else {
-      console.log(this.apiForm)
-      alert("Formulaire non valide. Veuillez remplir tous les champs obligatoires.");
     }
   }
-
   ngOnInit(): void {
     this.apiForm = this.fb.group({
       nom: ['', [Validators.required,  Validators.minLength(3)]],

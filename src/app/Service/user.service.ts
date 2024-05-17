@@ -1,15 +1,21 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../Classes/user';
+import { Profils } from '../profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userUrl = 'http://localhost:9092/users';
+  private userUrl = 'http://localhost:9095/users';
 
   constructor(private http: HttpClient) { }
+
+//   // service mailing
+// envoyerMail(user: User):Observable<User[]> {
+//   return this.http.post<any>(`${this.userUrl}/sendEmail`);
+// }
 
   //  add new USER
 addUser(user : User): Observable<any> {
@@ -62,5 +68,61 @@ getByEmail(email : string): Observable<User> {
    })
     );
   }
+
+// filtrer user
+    filtrerUser(profile: Profils): Observable<User[]> {
+      const url = `${this.userUrl}/filtrerUser?profile=${profile}`;
+      return this.http.get<User[]>(url);
+    }
+
+
+// filter consommateurs
+filtrerConsommateur(grade: string): Observable <User[]>{
+  const params = new HttpParams().set('Grade', grade);
+  return this.http.get<User[]>(`${this.userUrl}/filtrerUserGrade`,{params});
+}
+
+
+// filter validateurs
+filtrerValidateurs(grade: string): Observable <User[]>{
+  const params = new HttpParams().set('Grade', grade);
+  return this.http.get<User[]>(`${this.userUrl}/filtrerUserGrade`,{params});
+}
+
+// filter admins delegues
+filtrerAdminDeleguee(grade: string): Observable <User[]>{
+  const params = new HttpParams().set('Grade', grade);
+  return this.http.get<User[]>(`${this.userUrl}/filtrerUserGrade`,{params});
+}
+
+
+
+    // liste des consommateurs
+    getListeConsommateurs():Observable<User[]> {
+      return this.http.get<User[]>(`${this.userUrl}/consulterConsommateurs`);
+    }
+// liste des validateurs
+    getListeValidateurs():Observable<User[]> {
+      return this.http.get<User[]>(`${this.userUrl}/consulterValidateurs`);
+    }
+
+// liste des validateurs 1
+getListeValidateurs1():Observable<User[]> {
+  return this.http.get<User[]>(`${this.userUrl}/consulterValidateursNiveau1`);
+}
+
+// liste des validateurs 2
+    getListeValidateurs2():Observable<User[]> {
+      return this.http.get<User[]>(`${this.userUrl}/consulterValidateursNiveau2`);
+    }
+// liste des adminDelegues
+    getListeAdminDeleguee():Observable<User[]> {
+      return this.http.get<User[]>(`${this.userUrl}/consulterAdminDelg`);
+    }
+
+    // liste des admin
+    getListeAdmins():Observable<User[]> {
+      return this.http.get<User[]>(`${this.userUrl}/consulterAdmin`);
+    }
 
 }

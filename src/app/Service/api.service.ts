@@ -8,7 +8,7 @@ import { Api } from '../Classes/api';
 })
 export class ApiService {
 
-  private apiUrl = 'http://localhost:9092/api';
+  private apiUrl = 'http://localhost:9095/api';
   constructor(private http: HttpClient) { }
 
   //  add new Api
@@ -25,7 +25,7 @@ private handleError(error: HttpErrorResponse): Observable<never> {
 
 // filter apis
 filtrerApi(nom : string): Observable <Api[]>{
-  const params = new HttpParams().set('nomApi', nom);
+  const params = new HttpParams().set('nom', nom);
   return this.http.get<Api[]>(`${this.apiUrl}/filtrerApi`,{params});
 }
 

@@ -22,11 +22,11 @@
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{user.nom}}</h4>
                     <p class="mb-0">{{user.email}}</p>
-                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                    <div class="text-muted"><small>Derniere vue depuis 2 heures passées</small></div>
                     <div class="mt-2">
                       <button class="btn btn-danger" (click)="changePhoto()" type="button" >
                         <i class="fa fa-fw fa-camera"></i>
-                        <span>Change Photo</span>
+                        <span>Changer Photo</span>
                       </button>
                     </div>
                   </div>
@@ -37,7 +37,7 @@
                 </div>
               </div>
               <ul class="nav nav-tabs">
-                <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                <li class="nav-item"><a href="" class="active nav-link">Réglages</a></li>
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
@@ -70,6 +70,18 @@
                             </div>
                           </div>
                         </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="profile">Profile</label>
+                              <select class="form-control" id="profile" name="profile" [(ngModel)]="user.profile" required>
+                                <option *ngFor="let profil of profileOptions" [value]="profil">{{ profil }}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
                         <br>
                         <div class="row">
                           <div class="col">
@@ -130,28 +142,12 @@
                             </div>
                           </div>
                         </div>
-                        <!--<div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label for="NewPassword"><i class="fa fa-key"></i> Nouveau mot de passe</label>
-                              <input class="form-control" type="password" id="NewPassword" name="NewPassword">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label for="ConfirmerNewPassword"><i class="fa fa-lock"></i> Confirmer <span class="d-none d-xl-inline">nouveau mot de passe</span></label>
-                              <input class="form-control" id="ConfirmerNewPassword" name="ConfirmerNewPassword" type="password" ></div>
-                          </div>
-                        </div>
-                        <!-->
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit" (click)="modifierUser()"><i class="fas fa-edit"></i> Save Changes</button>
+                        <button class="btn btn-primary" type="submit" (click)="modifierUser()"><i class="fas fa-edit"></i> Enregistrer Modifications</button>
                       </div>
                     </div>
                   </form>
@@ -171,7 +167,7 @@
                 <i class="fa fa-sign-out"></i>
                 <a *ngIf="auth"   class="nav-link x"  (click)="logOut()" style="cursor: pointer; color:black;">
                   <i class="fas fa-sign-out-alt"></i>
-                  <span>Logout</span>
+                  <span>Déconnexion</span>
                 </a>
               </button>
             </div>
@@ -179,9 +175,9 @@
         </div>
         <div class="card">
           <div class="card-body">
-            <h6 class="card-title font-weight-bold">Support</h6>
-            <p class="card-text">Get fast, free help from our friendly assistants.</p>
-            <button type="button" class="btn btn-primary" routerLink="/accueil">Contact Us</button>
+            <h6 class="card-title font-weight-bold">Aide</h6>
+            <p class="card-text">Allez Plus rapide et Contactez-nous </p>
+            <button type="button" class="btn btn-primary" routerLink="/accueil">Contactez-Nous</button>
           </div>
         </div>
       </div>

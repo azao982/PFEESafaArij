@@ -11,12 +11,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./consulterlisteapi.component.css']
 })
 export class ConsulterlisteapiComponent implements OnInit {
-
   apis: Api[] = [];
+  nom: string= '';
   searchKeyword: string = '';
   searchResults: Api[] = [];
   selectedApi:  Api | undefined;
-
   constructor(private apisService: ApiService, private router: Router) {}
 // get APi
   ngOnInit(): void {
@@ -87,12 +86,6 @@ private showErrorMessage(message: string): void {
 // rechecher apis
   searchApi(): void {
     if (!this.searchKeyword) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops...',
-        color : 'red',
-        text: 'Veuillez entrer une API à rechercher !',
-      });
       return;
     }
 
@@ -101,12 +94,7 @@ private showErrorMessage(message: string): void {
         if (result.length != 0) {
           this.searchResults = result;
           const formattedResults = this.searchResults.map(api => api.code).join(',');
-          Swal.fire({
-            icon: 'success',
-            title: 'Resultat recherche',
-            color : 'green' ,
-            text: 'L api que vous cherchez a le code  : ' + formattedResults,
-          });
+
           return;
         }
 
@@ -131,25 +119,27 @@ private showErrorMessage(message: string): void {
     );
   }
 
+
 // consulter details apis
 showDetails(api: Api): void {
     this.selectedApi = api;
   }
 
 // filtrer apis
-filtrerApi(nom : string){
+trierApi(nom : string){
 
-    this.apisService.filtrerApi(nom).subscribe(
-      (result: Api[]) => {
-        console.log('Résultats filtrés :', result);
-        this.apis=result;
-        console.log(result);
+  this.apisService.filtrerApi(nom).subscribe(
+    (result: Api[]) => {
+      console.log('Résultats filtrés :', result);
+      this.apis=result;
+      console.log(result);
 
-      },
-      error => {
-        console.error('Erreur lors du filtrage :', error);
-        this.showErrorMessage("erreur lors du filtrage");
-      }
-    );
+    },
+    error => {
+      console.error('Erreur lors du filtrage :', error);
+      this.showErrorMessage("erreur lors du filtrage");
+    }
+  );
 }
+
 }

@@ -1,7 +1,10 @@
 export enum Status {
-  en_cours_de_validation_1er_niveau,
-  terminée,
-  en_cours_de_validation_2eme_niveau,
-  refusée,
-  rectifiée
+    enCoursConsommateur="enCoursConsommateur",
+    terminée="terminée",
+    refusée="refusée",
+    à_rectifier="à_rectifier",
+    en_cours_1ere_validation="en_cours_1ere_validation",
+    en_cours_2eme_validation="en_cours_2eme_validation",
 }
+
+

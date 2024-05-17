@@ -1,0 +1,95 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container">
+  <div class="card-header">
+    <br><br>
+    <h5>Liste des mails</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 text-center px-xl-3">
+        <button class="btn btn-warning btn-block" type="button" data-bs-toggle="modal" data-bs-target="#user-form-modal">
+          <i class="fa fa-plus"></i> Ajouter un mail
+        </button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <!-- Boucle sur les mails pour les afficher -->
+    <div class="col-md-4" *ngFor="let mail of (searchResults.length ? searchResults : mails); let i = index">
+      <div class="card user-card" [ngStyle]="{'background-color': userColors[i % userColors.length]}">
+        <div class="card-block">
+          <div class="user-image">
+            <img [src]="avatars[i % avatars.length]" alt="Avatar" class="rounded-circle border-4 border-white">
+          </div>
+          <h6 class="f-w-600 m-t-25 m-b-10"><strong>Destinataire:</strong>{{mail.toEmail}}</h6>
+          <h6 class="f-w-600 m-t-25 m-b-10"><strong>Objet:</strong>{{mail.subject}}</h6>
+          <h6 class="f-w-600 m-t-25 m-b-10"><strong>Sujet:</strong>{{mail.body}}</h6>
+          <div class="counter-block m-t-10 p-20">
+            <div class="row">
+              <div class="col-md-4" [ngStyle]="{'background-color': userContainerColors[i % userContainerColors.length]}">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal" aria-labelledby="user-form-modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-user-plus"></i> Ajouter un mail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form [formGroup]="mailForm">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="toEmail"><i class="fas fa-user"></i> Destinataire</label>
+                  <input class="form-control" type="text" id="toEmail" formControlName="toEmail" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="subject"><i class="fas fa-user"></i> Objet</label>
+                  <input class="form-control" type="text" id="subject" formControlName="subject" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="body"><i class="fas fa-envelope"></i> Sujet</label>
+                  <input class="form-control" type="text" id="body" formControlName="body" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 mb-3">
+                <div class="row">
+                  <div class="text-center">
+                    <button type="button" (click)="onAjouter()" class="btn btn-primary" [disabled]="formulaire">
+                      <i class="fas fa-plus-circle"></i> Envoyer Mail
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

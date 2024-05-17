@@ -26,7 +26,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #850606;
+            background-color: #0056b3;
             border-color: #0056b3;
         }
 
@@ -37,13 +37,30 @@
         .btn-link:hover {
             color: #e69a29;
         }
+
+        .icon {
+            margin-right: 10px;
+        }
+
+        .btn-back {
+            margin-right: 10px;
+        }
+        input{
+            margin-left: 5px;
+        }
+        h2{
+            font-weight: bold;
+            text-align: center;
+            color: black;
+            margin-right:150px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <form (ngSubmit)="modifierApi()">
-            <h1><i class="fa fa-edit" style="color:#0056b3;"></i> Modifier Api</h1>
+            <h2><i class="fa fa-edit" style="color:black"></i> Modifier Api</h2>
 
             <div class="form-group">
                 <label for="nom"><i class="fas fa-file-signature"></i> Nom :</label>
@@ -82,13 +99,21 @@
 
             <div class="form-group">
                 <label for="mode"><i class="fas fa-cog"></i> Mode :</label>
-                <input class="form-control" type="text" id="mode" name="mode" [(ngModel)]="api.mode" required>
+                <select class="form-control" id="mode" name="mode" [(ngModel)]="api.mode" required>
+                    <option value="prod">prod</option>
+                    <option value="preprod">preprod</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="methode"><i class="fas fa-server"></i> Methode :</label>
-                <input class="form-control" type="text" id="methode" name="methode" [(ngModel)]="api.methode" required>
+                <label for="methode"><i class="fas fa-server"></i> Méthode :</label>
+                <select class="form-control" id="methode" name="methode" [(ngModel)]="api.methode" required>
+                    <option value="get">get</option>
+                    <option value="post">post</option>
+                </select>
             </div>
+
+
 
             <div class="form-group">
                 <label for="impact"><i class="fas fa-exclamation-circle"></i> Impact :</label>
@@ -96,7 +121,7 @@
             </div>
 
             <div class="form-group">
-                <a class="btn btn-link" href="/listApi"><i class="fas fa-arrow-left"></i> Retour vers liste Apis</a>
+                <a class="btn btn-dark" href="/listApi"><i class="fas fa-arrow-left"></i></a>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier Api</button>
             </div>
         </form>

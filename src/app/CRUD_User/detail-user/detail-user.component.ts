@@ -24,7 +24,8 @@ export class DetailUserComponent implements OnInit {
       grade:'',
       fonction:"",
       cnrps:'',
-      password:''
+      password:'',
+      profile : '',
     }
 
     private getUser(idUser : number) : void{
@@ -33,15 +34,30 @@ export class DetailUserComponent implements OnInit {
           this.user=user;
       })
     }
-    supprimerUser(idUser : number) : void {
-      if (idUser === undefined || idUser === null) {
-          alert("idUser indéfini");
-          return;
-      }
+// supprimer user
+supprimerUser(idUser: number): void {
+  if (idUser === undefined || idUser === null) {
+    alert("ID utilisateur indéfini");
+    return;
+  }
 
-      console.log("id user à supprimer : ", idUser);
+  // Boîte de dialogue de confirmation
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: 'Vous ne pourrez pas récupérer cet utilisateur!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui, supprimer!',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Si l'utilisateur confirme la suppression, appeler la méthode de suppression
+      console.log("id utilisateur à supprimer : ", idUser);
       this.UserService.supprimerUser(idUser).subscribe(
         () => {
+          // Afficher une boîte de dialogue de succès
           Swal.fire({
             icon: 'success',
             title: 'Succès!',
@@ -55,7 +71,8 @@ export class DetailUserComponent implements OnInit {
           });
         },
         error => {
-          console.error('Échec de la suppression user :', error);
+          // En cas d'erreur, afficher une boîte de dialogue d'erreur
+          console.error('Échec de la suppression de l\'utilisateur :', error);
           Swal.fire({
             icon: 'error',
             title: 'Erreur!',
@@ -66,7 +83,13 @@ export class DetailUserComponent implements OnInit {
         }
       );
     }
+  });
+}
 
+// envoyer mail user
+mailingUser(idUser: number): void {
+  this.Router.navigate(["/mailingUser" , idUser]);
+}
 //modifier user
 modifierUser(idUser : number) : void {
   this.Router.navigate(['/modifierUser' ,idUser]);

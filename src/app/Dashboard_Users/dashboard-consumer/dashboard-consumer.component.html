@@ -1,1 +1,130 @@
-<p>dashboard-consumer works!</p>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <div id="content" class="content content-full-width">
+            <!-- begin profile -->
+            <div class="profile">
+               <div class="profile-header">
+                  <!-- BEGIN profile-header-cover -->
+                  <div class="profile-header-cover"></div>
+                  <!-- END profile-header-cover -->
+                  <!-- BEGIN profile-header-content -->
+                  <div class="profile-header-content">
+                     <!-- BEGIN profile-header-img -->
+                     <div class="profile-header-img">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                     </div>
+                     <!-- END profile-header-img -->
+                     <!-- BEGIN profile-header-info -->
+                     <div class="profile-header-info">
+                      <div *ngFor="let user of users">
+                        <h4 class="m-t-10 m-b-5">{{user.nom}}</h4>
+                        <p class="m-b-10">{{user.grade}}</p>
+                        <p class="m-b-10">{{user.mobile}}</p>
+
+                     </div></div>
+                     <!-- END profile-header-info -->
+                  </div>
+
+                  <ul class="profile-header-tab nav nav-tabs">
+                     <li class="nav-item"><a (click)="detailUser(user.idUser)">A propos</a></li>
+                     <li><a (click)="listDemandeEnCours()">Demandes En Cours</a></li>
+                     <li><a (click)="listDemandeRefuses()">Demandes Refusées</a></li>
+                     <li><a (click)="listDemandeArectifier()">Demandes a réctifier</a></li>
+                     <li><a (click)="listDemandeTermines()">Demandes Terminées</a></li>
+                    </ul>
+                  <!-- END profile-header-tab -->
+               </div>
+            </div>
+
+            <div class="profile-content">
+               <!-- begin tab-content -->
+               <div class="tab-content p-0">
+                  <!-- begin #profile-friends tab -->
+                  <div class="tab-pane fade in active show" id="profile-friends">
+                     <h4 class="m-t-0 m-b-20">Liste de mes demandes </h4>
+
+                     <div class="container">
+                      <div class="row mb-3">
+                        <!-- Demandes -->
+                        <div class="col-md-3">
+                          <div class="card h-100">
+                            <img src="/assets/demandeEnCours.png" class="card-img-top" (click)="listDemandeEnCours()">
+                            <br><br>
+                            <div class="card-body">
+                              <h5 class="card-title" (click)="listDemandeEnCours()" style="margin-left:80px;">En Cours de traitement</h5>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="card h-100">
+                            <img src="/assets/demandeArectif.png" class="card-img-top" (click)="listDemandeArectifier()">
+                            <br><br>
+                            <div class="card-body">
+                              <h5 class="card-title" (click)="listDemandeArectifier()" style="margin-left:80px;">A rectifier</h5>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="card h-100">
+                            <img src="/assets/demandeRefuse.png" class="card-img-top" (click)="listDemandeRefuses()">
+                            <br><br>
+                            <div class="card-body">
+                              <h5 class="card-title"  (click)="listDemandeTermines()" style="margin-left:80px;">Refusées</h5>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="card h-100">
+                            <img src="/assets/demandeDone.png" class="card-img-top" (click)="listDemandeTermines()">
+                            <br><br>
+                            <div class="card-body">
+                              <h5 class="card-title" (click)="listDemandeTermines()" style="margin-left:80px;">Terminées</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                 <h4 class="m-t-0 m-b-20">Autres Actions</h4>
+<div class="row mb-4">
+  <!-- Liste des API -->
+  <div class="col-md-4">
+    <div class="card h-100">
+      <img src="/assets/apis.png" class="card-img-top" routerLink="/listApiConsummer">
+      <br>
+      <div class="card-body">
+        <i class="fa fa-cogs" routerLink="/listApiConsummer"> </i> <strong>Voir List</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modifier Profile -->
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div *ngFor="let user of users">
+        <img src="/assets/modifierProfil.jpg" class="card-img-top" (click)="modifierUser(user.idUser)">
+        <div class="card-body">
+          <i class="fa fa-edit" (click)="modifierUser(user.idUser)"> </i> <strong> Modifier Profile </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Détails Profile -->
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div *ngFor="let user of users">
+        <img src="/assets/profile.png" class="card-img-top"(click)="detailUser(user.idUser)">
+        <div class="card-body"><br>
+          <i class="fa fa-circle-info" (click)="detailUser(user.idUser)"> </i> <strong> Détails Profile </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                  </div>
+                </div></div></div></div></div></div>

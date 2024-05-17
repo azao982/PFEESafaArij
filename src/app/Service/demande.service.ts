@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DemandeApi } from '../Classes/demandeApi';
@@ -6,7 +6,7 @@ import { DemandeApi } from '../Classes/demandeApi';
   providedIn: 'root'
 })
 export class DemandeService {
-  private demandeUrl = 'http://localhost:9092/demande';
+  private demandeUrl = 'http://localhost:9095/demande';
   constructor(private http: HttpClient) { }
 
   //  add new Demande
@@ -26,7 +26,21 @@ addDemande(demande : DemandeApi): Observable<any> {
   getListeDemandes():Observable<DemandeApi[]> {
     return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterDemandesApis`);
   }
-
+  getListeDemandes1niv():Observable<DemandeApi[]> {
+    return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterlist1niv`);
+  }
+  getListeDemandesTermin():Observable<DemandeApi[]> {
+    return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterlistTermin`);
+  }
+  getListeDemandesEncoursCons():Observable<DemandeApi[]> {
+    return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterlistEncourscons`);
+    }
+    getListeDemandesRef():Observable<DemandeApi[]> {
+      return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterlistRef`);
+      }
+      getListeDemandesArect():Observable<DemandeApi[]> {
+        return this.http.get<DemandeApi[]>(`${this.demandeUrl}/consulterlistArect`);
+        }
   // rechercher Demande
   searchDemande(keyword: string): Observable<DemandeApi[]> {
     return this.http.get<DemandeApi[]>(`${this.demandeUrl}/rechercherDemande?keyword=${keyword}`);
@@ -57,5 +71,12 @@ getByAdresseIpApp(adresseipapp : string): Observable<DemandeApi> {
     const url = `${this.demandeUrl}/modifierDemApi/${idDemande}`;
     return this.http.put<void>(url, demande);
   }
+
+  // filtrer demande
+  filtrerDemande(nomapp: string): Observable<DemandeApi[]> {
+    const params = new HttpParams().set('nomapp', nomapp); // Correction ici
+    return this.http.get<DemandeApi[]>(`${this.demandeUrl}/filtrerDemande`, { params });
+  }
+
 
 }

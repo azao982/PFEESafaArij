@@ -1,5 +1,5 @@
 import { DemandeApi } from 'src/app/Classes/demandeApi';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DemandeService } from 'src/app/Service/demande.service';
 import Swal from 'sweetalert2';
@@ -10,13 +10,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./details-demande.component.css']
 })
 export class DetailsDemandeComponent implements OnInit {
+  @Output() statutChanged: EventEmitter<string> = new EventEmitter<string>();
 
+  isCardOpen: boolean = true;
   constructor(private demandeService : DemandeService ,private ActivatedRoute: ActivatedRoute, private Router:Router) {}
     ngOnInit() : void{
       const idDemande:any=this.ActivatedRoute.snapshot.paramMap.get('idDemande');
       this.getDemande(idDemande);
+      if (!this.demande.statut) {
+        this.demande.statut = ''; // Définissez ici la valeur par défaut souhaitée
     }
-
+    }
    demande:any={
     idDemande :'',
     reference: '',
@@ -35,7 +39,7 @@ export class DetailsDemandeComponent implements OnInit {
     datemodification : '',
     dateinvmasse : '',
     raisoninmasse : '',
-
+    statut:'',
   }
 
     private getDemande(idDemande : number) : void{
@@ -51,7 +55,7 @@ export class DetailsDemandeComponent implements OnInit {
 // supprimer demande
 supprimerDemande(idDemande: number): void {
   if (idDemande === undefined || idDemande === null) {
-    alert("id Demande indéfini");
+    alert("i d Demande indéfini");
     return;
   }
 
@@ -102,7 +106,14 @@ supprimerDemande(idDemande: number): void {
   modifierDemande(idDemande:number):void{
     this.Router.navigate(['/modifierDemande' ,idDemande]);
     }
-
+    closeModal(): void {
+      this.isCardOpen = false;
+      window.history.back();  // Fermer le card en mettant la variable à false
+    }
+    onStatutChange(newStatut: string): void {
+      this.demande.statut = newStatut;
+      // Émettre un événement pour informer le composant parent de la modification du statut
+      this.statutChanged.emit(newStatut);
+    }
 }
-
 

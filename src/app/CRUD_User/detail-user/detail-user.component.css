@@ -1,9 +1,25 @@
+
 body{
   margin-top:20px;
   background:#fcf6dc;
 }
+.container-bootstrap-snippets-bootdey{
+  background-size: cover;
+  width: 100%; /* Utilisation de la largeur de l'écran */
+  max-width: 100%; /* Limite la largeur maximale à 100% */
+  margin: 0 auto; /* Centre le contenu horizontalement */
+  padding: 0 20px; /* Ajoute un peu d'espace sur les côtés */
+
+
+/* Media query pour les écrans plus petits */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0 10px; /* Réduit l'espace sur les côtés pour les petits écrans */
+  }
+}}
 .panel.panel-default {
   border-top-width: 3px;
+  background-color: rgb(226, 226, 226);
 }
 .panel {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.098),0 1px 5px 0 rgba(0,0,0,.084);
@@ -21,18 +37,42 @@ body{
 }
 .h4
 {
-  color:rgb(12, 31, 127);
+  color:rgb(43, 67, 189);
 }
 button{
-  width: 100px;
-  height: 70px;
+  width: 120px;
+  height: 50px;
   border-radius: 10px;
   border-color: rgb(5, 4, 2);
-  color:blueviolet;
+  color:rgb(43, 113, 226);
 }
 
 label{
   color:rgb(20, 20, 39);
-
+  margin-left:12px;
   font-weight: bold;
 }
+input
+{
+  justify-content: center;
+  margin-left:20px;
+  max-width: 100%;
+  margin: 0 auto;
+  /* Centre le contenu horizontalement */
+  padding: 0 20px;
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0 10px; /* Réduit l'espace sur les côtés pour les petits écrans */
+  }
+}
+}
+
+a{
+  margin-left:12px;
+
+}
+input[type="checkbox"] {
+  margin-left: 0;
+  width: auto;
+}
+

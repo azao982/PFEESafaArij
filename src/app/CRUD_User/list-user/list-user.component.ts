@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Classes/user';
 import { UserService } from 'src/app/Service/user.service';
 import { Profils } from 'src/app/profile';
-//import { Profils } from 'src/app/profils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,6 +14,7 @@ import Swal from 'sweetalert2';
 export class ListUserComponent implements OnInit{
   users : User[]=[];
   user : User;
+  selectedProfile: Profils | undefined;
   selectedUser : User | undefined ;
   searchKeyword: string='';
   searchResults: User[] = [];
@@ -37,11 +37,12 @@ formData: any = {
   };
 
 constructor(private userService : UserService, private fb: FormBuilder, private router : Router ,private route : ActivatedRoute){}
+//selectedProfile: Profils = Profils.admin_delegue;
 
 // get all users
 ngOnInit(): void {
-
-  this.userForm = this.fb.group({
+     //  this.selectedProfile=Profils.admin_delegue;
+      this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       nom: ['', [Validators.required, Validators.minLength(3)]],
       prenom: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,22 +53,17 @@ ngOnInit(): void {
       cnrps: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       grade: ['', [Validators.required]],
       fonction: ['', [Validators.required]],
-      profile : ['']
+      profile : ['', Validators.required]
 
     });
- //   this.profileOptions = Object.values(Profils);
+    this.profileOptions = Object.values(Profils);
     this.getUser();
 }
-// validateur sur le champs profile
-profileValidator(validProfiles: string[]): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const value = control.value;
-    if (validProfiles.indexOf(value) === -1) {
-      return { 'invalidProfile': true };
-    }
-    return null;
-  };
-}
+userColors: string[] = ['#FADBD8', '#D6EAF8', '#D5DBDB', '#FCF3CF', '#D1F2EB', '#FDEDEC'];
+userIconColors: string[] = ['#9b59b6', '#3498db', '#34495e', '#2ecc71', '#e67e22', '#f1c40f'];
+userContainerColors: string[] = ['#F5B7B1', '#AED6F1', '#ABB2B9', '#F9E79F', '#A9DFBF', '#FAD7A0'];
+
+
 // get liste des users
 private getUser():void{
   this.userService.getListeUsers().subscribe(data => {
@@ -84,7 +80,6 @@ detailUser(idUser : number) : void {
   this.router.navigate(['/detailUser' ,idUser]);
 }
 //supprimer user
-
 supprimerUser(idUser: number): void {
   if (idUser === undefined || idUser === null) {
     console.error('ID utilisateur non défini');
@@ -116,8 +111,8 @@ supprimerUser(idUser: number): void {
 
 // ajouter user
 onAjouter() {
-  //console.log(this.profileOptions);
-  //console.log(this.userForm.value);
+  console.log(this.profileOptions);
+  console.log(this.userForm.value);
   if (this.userForm.valid) {
     this.formData = this.userForm.value; // Obtenir les valeurs du formulaire
     this.formData.profile = this.userForm.get('profile').value;
@@ -150,6 +145,8 @@ console.log(this.formData.profile)
     );
   }
 }
+
+// rechercher user
 RechercherUser(): void {
   if (!this.searchKeyword) {
     Swal.fire({
@@ -182,6 +179,22 @@ RechercherUser(): void {
       });
     }
   );
+}
+// filtrer user
+filtrerUser(): void {
+  if (this.selectedProfile) {
+    this.userService.filtrerUser(this.selectedProfile).subscribe(
+      (result: User[]) => {
+        console.log('Résultats filtrés :', result);
+        this.users = result; // Modifier ici
+      },
+      error => {
+        console.error('Erreur lors du filtrage :', error);
+      }
+    );
+  } else {
+    console.error('Profil non défini.');
+  }
 }
 }
 
